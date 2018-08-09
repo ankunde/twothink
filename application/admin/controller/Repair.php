@@ -44,11 +44,18 @@ class Repair extends Admin
     {
         //>>1.验证数据
         $post_data=\think\Request::instance()->post();
+
         $validate = validate('Repair');
+
         if(!$validate->check($post_data)){
             return $this->error($validate->getError());
         }
+
         //>>2.添加数据
+        $time = date('Y-m-d H:i:s',time());
+        $post_data['update_time']=$time;
+        $post_data['create_time']=$time;
+
         \app\admin\model\Repair::create($post_data);
         //>>3.返回页面
         $this->success('新增成功', url('index'));
@@ -74,6 +81,8 @@ class Repair extends Admin
             return $this->error($validate->getError());
         }
         //>>2.修改数据
+        $time = date('Y-m-d H:i:s',time());
+        $post_data['update_time']=$time;
         \app\admin\model\Repair::update($post_data);
         //>>3.返回视图
         $this->success('修改成功', url('index'));
