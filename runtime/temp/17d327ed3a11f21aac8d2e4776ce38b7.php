@@ -109,7 +109,7 @@
     <div class="cf">
         <a id="export" class="btn" href="javascript:;" autocomplete="off">立即备份</a>
         <a id="optimize" class="btn" href="<?php echo url('optimize'); ?>">优化表</a>
-        <a id="repair" class="btn" href="<?php echo url('repair'); ?>">修复表</a>
+        <a id="repair" class="btn" href="<?php echo url('online'); ?>">修复表</a>
     </div>
 
     <!-- 应用列表 -->
@@ -140,7 +140,7 @@
                             <td class="info">未备份</td>
                             <td class="action">
                                 <a class="ajax-get no-refresh" href="<?php echo url('optimize?tables='.$table['name']); ?>">优化表</a>&nbsp;
-                                <a class="ajax-get no-refresh" href="<?php echo url('repair?tables='.$table['name']); ?>">修复表</a>
+                                <a class="ajax-get no-refresh" href="<?php echo url('online?tables='.$table['name']); ?>">修复表</a>
                             </td>
                         </tr>
                     <?php endforeach; endif; else: echo "" ;endif; ?>
@@ -249,7 +249,7 @@
     <script type="text/javascript">
     (function($){
         var $form = $("#export-form"), $export = $("#export"), tables
-            $optimize = $("#optimize"), $repair = $("#repair");
+            $optimize = $("#optimize"), $repair = $("#online");
 
         $optimize.add($repair).click(function(){
             $.post(this.href, $form.serialize(), function(data){

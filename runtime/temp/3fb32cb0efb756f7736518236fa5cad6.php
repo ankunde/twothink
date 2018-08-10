@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:75:"D:\www\twothink\public/../application/admin/view/default/article\index.html";i:1496373782;s:73:"D:\www\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;s:78:"D:\www\twothink\public/../application/admin/view/default/article\sidemenu.html";i:1496373782;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:75:"D:\www\twothink\public/../application/admin/view/default/article\index.html";i:1533864428;s:73:"D:\www\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;s:78:"D:\www\twothink\public/../application/admin/view/default/article\sidemenu.html";i:1496373782;}*/ ?>
 <!doctype html>
 <html>
 <head>

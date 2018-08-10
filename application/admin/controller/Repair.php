@@ -22,7 +22,7 @@ class Repair extends Admin
      */
     public function index(){
         //>>1.查询数据库
-        $repair = \app\admin\model\Repair::all();
+        $repair = \app\admin\model\Repair::paginate(2);
         //>>2.返回视图
         $this->assign('repair',$repair);
         return $this->fetch();
@@ -50,7 +50,7 @@ class Repair extends Admin
         if(!$validate->check($post_data)){
             return $this->error($validate->getError());
         }
-
+        
         //>>2.添加数据
         $time = date('Y-m-d H:i:s',time());
         $post_data['update_time']=$time;
@@ -66,7 +66,7 @@ class Repair extends Admin
      */
     public function edit($id){
         $repair = Db::table('repiar')->where('id',$id)->find();
-        $this->assign('repair',$repair);
+        $this->assign('online',$repair);
         return $this->fetch();
     }
 
@@ -91,8 +91,16 @@ class Repair extends Admin
     /**
      * 报修删除
      */
-    public function del($id){
-        \app\admin\model\Repair::where('id',$id)->delete();
+    public function del(){
+        $id = array_unique((array)input('id/a',0));
+
+        if ( empty($id) ) {
+            $this->error('请选择要操作的数据!');
+        }
+
+        $map = array('id' => array('in', $id) );
+
+        Db::name('repiar')->where($map)->delete();
         $this->success('删除成功', url('index'));
     }
 }

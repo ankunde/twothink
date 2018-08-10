@@ -345,7 +345,7 @@ INSERT INTO `twothink_auth_rule` VALUES ('80', 'admin', '1', 'admin/Database/ind
 INSERT INTO `twothink_auth_rule` VALUES ('81', 'admin', '1', 'admin/Database/index?type=import', '还原数据库', '1', '');
 INSERT INTO `twothink_auth_rule` VALUES ('82', 'admin', '1', 'admin/Database/export', '备份', '1', '');
 INSERT INTO `twothink_auth_rule` VALUES ('83', 'admin', '1', 'admin/Database/optimize', '优化表', '1', '');
-INSERT INTO `twothink_auth_rule` VALUES ('84', 'admin', '1', 'admin/Database/repair', '修复表', '1', '');
+INSERT INTO `twothink_auth_rule` VALUES ('84', 'admin', '1', 'admin/Database/online', '修复表', '1', '');
 INSERT INTO `twothink_auth_rule` VALUES ('86', 'admin', '1', 'admin/Database/import', '恢复', '1', '');
 INSERT INTO `twothink_auth_rule` VALUES ('87', 'admin', '1', 'admin/Database/del', '删除', '1', '');
 INSERT INTO `twothink_auth_rule` VALUES ('88', 'admin', '1', 'admin/User/add', '新增用户', '1', '');
@@ -451,7 +451,7 @@ INSERT INTO `twothink_auth_rule` VALUES ('187', 'admin', '2', 'Admin/Category/me
 INSERT INTO `twothink_auth_rule` VALUES ('188', 'admin', '2', 'Admin/Database/index?type=export', '备份数据库', '-1', '');
 INSERT INTO `twothink_auth_rule` VALUES ('189', 'admin', '2', 'Admin/Database/export', '备份', '-1', '');
 INSERT INTO `twothink_auth_rule` VALUES ('190', 'admin', '2', 'Admin/Database/optimize', '优化表', '-1', '');
-INSERT INTO `twothink_auth_rule` VALUES ('191', 'admin', '2', 'Admin/Database/repair', '修复表', '-1', '');
+INSERT INTO `twothink_auth_rule` VALUES ('191', 'admin', '2', 'Admin/Database/online', '修复表', '-1', '');
 INSERT INTO `twothink_auth_rule` VALUES ('192', 'admin', '2', 'Admin/Database/index?type=import', '还原数据库', '-1', '');
 INSERT INTO `twothink_auth_rule` VALUES ('193', 'admin', '2', 'Admin/Database/import', '恢复', '-1', '');
 INSERT INTO `twothink_auth_rule` VALUES ('194', 'admin', '2', 'Admin/Database/del', '删除', '-1', '');
@@ -888,7 +888,7 @@ INSERT INTO `twothink_menu` VALUES ('85', '合并', '80', '0', 'Category/operate
 INSERT INTO `twothink_menu` VALUES ('86', '备份数据库', '68', '0', 'Database/index?type=export', '0', '', '数据备份', '0', '1');
 INSERT INTO `twothink_menu` VALUES ('87', '备份', '86', '0', 'Database/export', '0', '备份数据库', '', '0', '1');
 INSERT INTO `twothink_menu` VALUES ('88', '优化表', '86', '0', 'Database/optimize', '0', '优化数据表', '', '0', '1');
-INSERT INTO `twothink_menu` VALUES ('89', '修复表', '86', '0', 'Database/repair', '0', '修复数据表', '', '0', '1');
+INSERT INTO `twothink_menu` VALUES ('89', '修复表', '86', '0', 'Database/online', '0', '修复数据表', '', '0', '1');
 INSERT INTO `twothink_menu` VALUES ('90', '还原数据库', '68', '0', 'Database/index?type=import', '0', '', '数据备份', '0', '1');
 INSERT INTO `twothink_menu` VALUES ('91', '恢复', '90', '0', 'Database/import', '0', '数据库恢复', '', '0', '1');
 INSERT INTO `twothink_menu` VALUES ('92', '删除', '90', '0', 'Database/del', '0', '删除备份文件', '', '0', '1');

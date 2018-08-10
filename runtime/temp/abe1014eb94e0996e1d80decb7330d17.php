@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:74:"D:\www\twothink\public/../application/admin/view/default/repair\index.html";i:1533739332;s:73:"D:\www\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:74:"D:\www\twothink\public/../application/admin/view/default/online\index.html";i:1533796326;s:73:"D:\www\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
 <!doctype html>
 <html>
 <head>
@@ -100,20 +100,19 @@
             
 
             
-<!-- 标题栏 -->
-<div class="main-title">
-    <h2>插件列表</h2>
-</div>
-<div>
-    <!--<?php echo url('create'); ?>-->
-    <a href="<?php echo url('create'); ?>" class="btn">快速创建</a>
+<div class="cf">
+    <a class="btn" href="<?php echo url('create'); ?>">新 增</a>
+    <button class="btn ajax-post confirm" url="<?php echo url('del',[$value['id']]); ?>" target-form="ids">删 除</button>
+    <button class="btn list_sort" url="<?php echo url('sort',array('pid'=>input('get.pid',0)),''); ?>">排序</button>
 </div>
 
-<!-- 数据列表 -->
 <div class="data-table table-striped">
     <table>
         <thead>
         <tr>
+            <th class="row-selected">
+                <input class="checkbox check-all" type="checkbox">
+            </th>
             <th>编号</th>
             <th>标题</th>
             <th>名称</th>
@@ -126,6 +125,7 @@
         <tbody>
         <?php if(!(empty($repair) || (($repair instanceof \think\Collection || $repair instanceof \think\Paginator ) && $repair->isEmpty()))): if(is_array($repair) || $repair instanceof \think\Collection || $repair instanceof \think\Paginator): $i = 0; $__LIST__ = $repair;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$value): $mod = ($i % 2 );++$i;?>
         <tr>
+            <td><input class="ids row-selected" type="checkbox" name="" id="" value="<?php echo $value['id']; ?>"> </td>
             <td><?php echo $value['id']; ?></td>
             <td><?php echo $value['title']; ?></td>
             <td><?php echo $value['name']; ?></td>
@@ -142,12 +142,10 @@
         <?php endif; ?>
         </tbody>
     </table>
-</div>
-
-
-<!-- 分页 -->
-<div class="page">
-    <?php echo $_page; ?>
+    <!-- 分页 -->
+    <div class="page">
+        <?php echo $repair->render(); ?>
+    </div>
 </div>
 
         </div>
@@ -246,5 +244,27 @@
         }
     </script>
     
+<script type="text/javascript">
+    $(function() {
+        //点击排序
+        $('.list_sort').click(function(){
+            var url = $(this).attr('url');
+            var ids = $('.ids:checked');
+            var param = '';
+            if(ids.length > 0){
+                var str = new Array();
+                ids.each(function(){
+                    str.push($(this).val());
+                });
+                param = str.join(',');
+            }
+
+            if(url != undefined && url != ''){
+                window.location.href = url + '/ids/' + param;
+            }
+        });
+    });
+</script>
+
 </body>
 </html>

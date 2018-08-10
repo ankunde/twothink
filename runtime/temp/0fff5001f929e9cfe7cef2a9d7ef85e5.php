@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:74:"D:\www\twothink\public/../application/admin\view\default\repair\index.html";i:1533709240;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:74:"D:\www\twothink\public/../application/admin\view\default\online\index.html";i:1533709240;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>

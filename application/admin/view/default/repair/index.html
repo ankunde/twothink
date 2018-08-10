@@ -5,16 +5,21 @@
 <div class="main-title">
     <h2>插件列表</h2>
 </div>
-<div>
-    <!--{:url('create')}-->
-    <a href="{:url('create')}" class="btn">快速创建</a>
+
+{block name="body"}
+<div class="cf">
+    <a class="btn" href="{:url('create')}">新 增</a>
+    <button class="btn ajax-post confirm" url="{:url('del')}" target-form="ids">删 除</button>
+    <button class="btn list_sort" url="{:url('sort',array('pid'=>input('get.pid',0)),'')}">排序</button>
 </div>
 
-<!-- 数据列表 -->
 <div class="data-table table-striped">
     <table>
         <thead>
         <tr>
+            <th class="row-selected">
+                <input class="checkbox check-all" type="checkbox">
+            </th>
             <th>编号</th>
             <th>标题</th>
             <th>名称</th>
@@ -28,6 +33,7 @@
         {notempty name="repair"}
         {volist name="repair" id="value"}
         <tr>
+            <td><input class="ids row-selected" type="checkbox" name="ids[]" id="" value="{$value.id}"> </td>
             <td>{$value.id}</td>
             <td>{$value.title}</td>
             <td>{$value.name}</td>
@@ -45,11 +51,38 @@
         {/notempty}
         </tbody>
     </table>
-</div>
-
-
-<!-- 分页 -->
-<div class="page">
-    {$_page}
+    <!-- 分页 -->
+    <div class="page">
+        {$repair->render()}
+    </div>
 </div>
 {/block}
+
+
+
+{block name="script"}
+<script src="__PUBLIC__/static/thinkbox/jquery.thinkbox.js"></script>
+<script type="text/javascript">
+    $(function() {
+        //点击排序
+        $('.list_sort').click(function(){
+            var url = $(this).attr('url');
+            var ids = $('.ids:checked');
+            var param = '';
+            if(ids.length > 0){
+                var str = new Array();
+                ids.each(function(){
+                    str.push($(this).val());
+                });
+                param = str.join(',');
+            }
+
+            if(url != undefined && url != ''){
+                window.location.href = url + '/ids/' + param;
+            }
+        });
+    });
+</script>
+{/block}
+
+
