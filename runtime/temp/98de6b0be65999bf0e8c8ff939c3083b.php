@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:72:"D:\www\twothink\public/../application/home/view/default/index\index.html";i:1533971532;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:72:"D:\www\twothink\public/../application/home/view/default/index\index.html";i:1534076633;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -32,13 +32,13 @@
             <p class="navbar-text"><a href="index.html" class="navbar-link">首页</a></p>
         </div>
         <div class="col-xs-3">
-            <p class="navbar-text"><a href="fuwu.html" class="navbar-link">服务</a></p>
+            <p class="navbar-text"><a href="<?php echo url('Service/fuwu'); ?>" class="navbar-link">服务</a></p>
         </div>
         <div class="col-xs-3">
             <p class="navbar-text"><a href="faxian.html" class="navbar-link">发现</a></p>
         </div>
         <div class="col-xs-3">
-            <p class="navbar-text"><a href="my.html" class="navbar-link">我的</a></p>
+            <p class="navbar-text"><a href="<?php echo url('Service/my'); ?>" class="navbar-link">我的</a></p>
         </div>
     </div>
 </nav>
@@ -85,7 +85,7 @@
                     </a>
                 </div>
                 <div class="col-xs-4">
-                    <a href="zushou.html">
+                    <a href="<?php echo url('Rentsell/index'); ?>">
                     <div class="indexLabel label-primary">
                     <span class="glyphicon glyphicon-usd"></span><br/>
                     小区租售

@@ -20,6 +20,10 @@ class Online extends Home
      * @return \think\response\View
      */
     public function create(){
+        $serview = new Service();
+        if($serview==0){
+            return $this->success('您尚未登录或为审核通过',url('user/Login/index'));
+        }
         return $this->fetch();
     }
 

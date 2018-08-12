@@ -1,0 +1,95 @@
+{extend name="public/base" /}
+
+{block name="body"}
+<!-- 标题栏 -->
+<div class="main-title">
+    <h2>插件列表</h2>
+</div>
+
+{block name="body"}
+
+<div class="data-table table-striped">
+    <table>
+        <thead>
+        <tr>
+            <th class="row-selected">
+                <input class="checkbox check-all" type="checkbox">
+            </th>
+            <th>编号</th>
+            <th>姓名</th>
+            <th>房号</th>
+            <th>您与业主的关系(必填):</th>
+            <th>电话</th>
+            <th>身份证号码</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {notempty name="check"}
+        {volist name="check" id="value"}
+        <tr>
+            <td><input class="ids row-selected" type="checkbox" name="ids[]" id="" value="{$value.id}"> </td>
+            <td>{$value.id}</td>
+            <td>{$value.name}</td>
+            <td>{$value.room}</td>
+            <td>
+                {if $value.blood==1}
+                本人
+                {elseif $value.blood==2}
+                亲戚
+                {else}
+                租客
+                {/if}
+
+            </td>
+            <td>{$value.tel}</td>
+            <td>{$value.id_number}</td>
+            <td>
+                {if $value.static}
+                <p>审核已通过</p>
+                {else}
+                <a href="{:url('edit?id='.$value.id)}">点击审核通过</a>
+                {/if}
+            </td>
+        </tr>
+        {/volist}
+        {else/}
+        <td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td>
+        {/notempty}
+        </tbody>
+    </table>
+    <!-- 分页 -->
+    <div class="page">
+        {$check->render()}
+    </div>
+</div>
+{/block}
+
+
+
+{block name="script"}
+<script src="__PUBLIC__/static/thinkbox/jquery.thinkbox.js"></script>
+<script type="text/javascript">
+    $(function() {
+        //点击排序
+        $('.list_sort').click(function(){
+            var url = $(this).attr('url');
+            var ids = $('.ids:checked');
+            var param = '';
+            if(ids.length > 0){
+                var str = new Array();
+                ids.each(function(){
+                    str.push($(this).val());
+                });
+                param = str.join(',');
+            }
+
+            if(url != undefined && url != ''){
+                window.location.href = url + '/ids/' + param;
+            }
+        });
+    });
+</script>
+{/block}
+
+

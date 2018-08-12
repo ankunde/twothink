@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:71:"D:\www\twothink\public/../application/home/view/default/service\my.html";i:1534079165;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -58,22 +59,37 @@
         <div class="blank"></div>
         <div class="row text-center myLabel">
             <div class="col-xs-4 label-danger"><a href="#"><span class="iconfont">&#xe60b;</span>我的资料</a></div>
-            <div class="col-xs-4 label-success"><a href="#"><span class="iconfont">&#xe609;</span>我的报修</a></div>
+            <div class="col-xs-4 label-success"><a href="javascript:;" onclick="fn()"><span class="iconfont">&#xe609;</span>我的报修</a></div>
             <div class="col-xs-4 label-primary"><a href="#"><span class="iconfont">&#xe606;</span>报名的活动</a></div>
         </div>
         <div class="blank"></div>
         <div>
-            <ul class="list-group fuwuList">
-                <li class="list-group-item"><a href="diaochawenjuan.html" class="text-danger"><span class="iconfont">&#xe60a;</span>我的缴费账单</a> </li>
-                <li class="list-group-item"><a href="yezhurenzheng.html" class="text-info"><span class="iconfont">&#xe608;</span>我的物业通知</a></li>
-                <li class="list-group-item"><a href="yezhurenzheng.html" class="text-info"><span class="iconfont">&#xe607;</span>我的水电气使用</a></li>
+            <ul class="list-group fuwuList" id="ul">
+                <li class="list-group-item"><a href="<?php echo url('Service/notice'); ?>" class="text-danger"><span class="iconfont">&#xe60a;</span>我的缴费账单</a> </li>
+                <li class="list-group-item"><a href="<?php echo url('Service/notice'); ?>" class="text-info"><span class="iconfont">&#xe608;</span>我的物业通知</a></li>
+                <li class="list-group-item"><a href="<?php echo url('Service/notice'); ?>" class="text-info"><span class="iconfont">&#xe607;</span>我的水电气使用</a></li>
             </ul>
+            <ul class="list-group fuwuList" id="ul1"></ul>
         </div>
     </div>
 </div>
+
+
+
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/static/home/jquery-1.11.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/static/home/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        fn = function () {
+            $.get('/home/service/online',function (data) {
+                $("#ul").remove();
+                $("#ul1").append(data);
+            })
+        }
+    })
+</script>
 </body>
 </html>
