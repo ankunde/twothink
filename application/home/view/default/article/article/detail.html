@@ -45,7 +45,7 @@
 
     <div class="container-fluid">
         <div class="blank"></div>
-        <h3 class="noticeDetailTitle"><strong>{$info.title}</strong></h3>
+        <h3 class="noticeDetailTitle" ><strong>{$info.title}</strong></h3>
         <div class="noticeDetailInfo">{$info.uid|get_username}</div>
         <div class="noticeDetailInfo">发布时间：{$info.create_time|date='Y-m-d H:i',###}</div>
         <div class="noticeDetailContent">
@@ -53,10 +53,32 @@
         </div>
     </div>
 </div>
+{if(is_login())}
+<button id="a" activity="{$id}" uid="{$Think.session.user_auth.uid}"   class="btn btn-primary btn-block get_more" onclick="sign()">报名活动</button>
+<div id="b"></div>
+{else}
+<a href="{:url('user/Login/index')}"  class="btn btn-primary btn-block get_more">请先登录</a>
+{/if}
 {:hook('documentDetailAfter',$info)}
+<!--顶一下-->
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/static/home/jquery-1.11.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/static/home/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        sign = function () {
+            var uid=$("#a").attr('uid');
+            var activity_id = $("#a").attr('activity');
+            $.get('/home/Sign/index','uid='+uid+'&activity='+activity_id,function (data) {
+                if (!data){
+                    $("#a").remove();
+                    $("#b").append("<a href='javascript:;' class='btn btn-danger btn-block get_more'>您已经报名过此活动了</a>");
+                }
+
+            })
+        }
+    })
+</script>
 </body>
 </html>

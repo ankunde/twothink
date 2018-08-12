@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:72:"D:\www\twothink\public/../application/home/view/default/index\index.html";i:1533823268;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:72:"D:\www\twothink\public/../application/home/view/default/index\index.html";i:1533971532;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -77,7 +77,7 @@
                     </a>
                 </div>
                 <div class="col-xs-4">
-                    <a href="notice.html">
+                    <a href="<?php echo url('Article/lists?category='.get_category_name(50)); ?>">
                     <div class="indexLabel label-success">
                     <span class="glyphicon glyphicon-briefcase"></span><br/>
                     商家活动
@@ -93,7 +93,7 @@
                     </a>
                 </div>
                 <div class="col-xs-4">
-                    <a href="notice.html">
+                    <a href="<?php echo url('Article/lists?category='.get_category_name(51)); ?>">
                     <div class="indexLabel label-default">
                         <span class="glyphicon glyphicon-apple"></span><br/>
                         小区活动

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:74:"D:\www\twothink\public/../application/home/view/default/article\lists.html";i:1533870352;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:74:"D:\www\twothink\public/../application/home/view/default/article\lists.html";i:1533917764;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -44,8 +44,8 @@
 	</nav>
 	<!--导航结束-->
 	<?php if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$data): $mod = ($i % 2 );++$i;?>
-	<div class="container-fluid">
-			<div class="row noticeList">
+	<div class="container-fluid" id="div" category="<?php echo $category['id']; ?>">
+			<div class="row noticeList" >
 				<a href="<?php echo url('Article/detail?id='.$data['id']); ?>">
 					<div class="col-xs-2">
 						<img class="noticeImg" src="__ROOT__<?php echo get_cover_path($data['cover_id']); ?>" />
@@ -55,20 +55,39 @@
 						<p class="lead"><?php echo $data['description']; ?></p>
 						<span>查看全文</span>
 						<span class="pull-right">
-											<span class="author"><?php echo get_username($data['uid']); ?></span>&nbsp;&nbsp;
 											<span>发表于 <?php echo $data['create_time']; ?></span>
 											<span>阅读(<?php echo $data['view']; ?>)</span>&nbsp;&nbsp;
 										</span>
 					</div>
 				</a>
 			</div>
-
+			<div id="pageHTML" ></div>
 	</div>
 	<?php endforeach; endif; else: echo "" ;endif; ?>
+	<p id="p" style="text-align:center">
+		<button   class="btn btn-default btn-block get_more" onclick="getLists()">获取更多。。。</button>
+	</p>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/static/home/jquery-1.11.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/static/home/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var page = 2 ;
+        getLists =  function(){
+            var category_id= $('#div').attr("category");
+            $.get('/home/article/lists','category='+category_id+'&p='+page,function (data) {
+                if(data){
+                    $('#pageHTML').append(data)
+				}else {
+                    $('#p').html('没有更多了')
+				}
+            });
+            page++;
+        };
+
+    })
+</script>
 </body>
 </html>

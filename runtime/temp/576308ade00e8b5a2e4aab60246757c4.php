@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:83:"D:\www\twothink\public/../application/home/view/default/article\article\detail.html";i:1533870810;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:83:"D:\www\twothink\public/../application/home/view/default/article\article\detail.html";i:1534034528;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -46,7 +46,7 @@
 
     <div class="container-fluid">
         <div class="blank"></div>
-        <h3 class="noticeDetailTitle"><strong><?php echo $info['title']; ?></strong></h3>
+        <h3 class="noticeDetailTitle" ><strong><?php echo $info['title']; ?></strong></h3>
         <div class="noticeDetailInfo"><?php echo get_username($info['uid']); ?></div>
         <div class="noticeDetailInfo">发布时间：<?php echo date('Y-m-d H:i',$info['create_time']); ?></div>
         <div class="noticeDetailContent">
@@ -54,10 +54,32 @@
         </div>
     </div>
 </div>
+<?php if((is_login())): ?>
+<button id="a" activity="<?php echo $id; ?>" uid="<?php echo \think\Session::get('user_auth.uid'); ?>"   class="btn btn-primary btn-block get_more" onclick="sign()">报名活动</button>
+<div id="b"></div>
+<?php else: ?>
+<a href="<?php echo url('user/Login/index'); ?>"  class="btn btn-primary btn-block get_more">请先登录</a>
+<?php endif; ?>
 <?php echo hook('documentDetailAfter',$info); ?>
+<!--顶一下-->
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/static/home/jquery-1.11.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/static/home/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        sign = function () {
+            var uid=$("#a").attr('uid');
+            var activity_id = $("#a").attr('activity');
+            $.get('/home/Sign/index','uid='+uid+'&activity='+activity_id,function (data) {
+                if (!data){
+                    $("#a").remove();
+                    $("#b").append("<a href='javascript:;' class='btn btn-danger btn-block get_more'>您已经报名过此活动了</a>");
+                }
+
+            })
+        }
+    })
+</script>
 </body>
 </html>

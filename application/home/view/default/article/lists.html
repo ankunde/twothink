@@ -43,8 +43,8 @@
 	</nav>
 	<!--导航结束-->
 	{volist name="list" id="data"}
-	<div class="container-fluid">
-			<div class="row noticeList">
+	<div class="container-fluid" id="div" category="{$category.id}">
+			<div class="row noticeList" >
 				<a href="{:url('Article/detail?id='.$data['id'])}">
 					<div class="col-xs-2">
 						<img class="noticeImg" src="__ROOT__{$data.cover_id|get_cover_path}" />
@@ -54,20 +54,39 @@
 						<p class="lead">{$data.description}</p>
 						<span>查看全文</span>
 						<span class="pull-right">
-											<span class="author">{$data.uid|get_username}</span>&nbsp;&nbsp;
 											<span>发表于 {$data.create_time}</span>
 											<span>阅读({$data.view})</span>&nbsp;&nbsp;
 										</span>
 					</div>
 				</a>
 			</div>
-
+			<div id="pageHTML" ></div>
 	</div>
 	{/volist}
+	<p id="p" style="text-align:center">
+		<button   class="btn btn-default btn-block get_more" onclick="getLists()">获取更多。。。</button>
+	</p>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/static/home/jquery-1.11.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/static/home/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var page = 2 ;
+        getLists =  function(){
+            var category_id= $('#div').attr("category");
+            $.get('/home/article/lists','category='+category_id+'&p='+page,function (data) {
+                if(data){
+                    $('#pageHTML').append(data)
+				}else {
+                    $('#p').html('没有更多了')
+				}
+            });
+            page++;
+        };
+
+    })
+</script>
 </body>
 </html>

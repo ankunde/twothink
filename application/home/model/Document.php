@@ -8,6 +8,7 @@
 // +----------------------------------------------------------------------
 
 namespace app\home\model;
+use think\Db;
 use think\Model;
 
 /**
@@ -60,9 +61,12 @@ class Document extends Model{
      * @param  string   $field    字段 true-所有字段
      * @return array              文档列表
      */
-    public function lists($category, $order = '`id` DESC', $status = 1, $field = true){
+    public function lists($category, $page=1,$order = '`id` DESC', $status = 1, $field = true){
         $map = $this->listMap($category, $status);
-        return $this->field($field)->with('picture')->where($map)->order($order)->select();
+
+        $length = 1;
+        $limit =($page-1)*$length;
+        return $this->field($field)->with('picture')->where($map)->limit($limit,$length)->order($order)->select();
     }
 
     /**
@@ -294,8 +298,7 @@ class Document extends Model{
      */
     public function listMap($category, $status = 1, $pos = null){
         /* 设置状态 */
-        $map = array('status' => $status, 'pid' => 0);
-
+        $map = array('status' => $status, 'pid' => 0);//
         /* 设置分类 */
         if(!is_null($category)){
             if(is_numeric($category)){
@@ -306,8 +309,11 @@ class Document extends Model{
         }
 
         $map['create_time'] = array('lt', time());
-        $map['deadline']     = [['eq',0],['gt',time()],'or'];
+        $map['deadline']   =[['eq',0],['gt',time()],'or'];
+
+
         /* 设置推荐位 */
+
         if(is_numeric($pos)){
             $map[] = "position & {$pos} = {$pos}";
         }

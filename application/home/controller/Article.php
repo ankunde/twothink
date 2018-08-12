@@ -2,6 +2,8 @@
 namespace app\home\controller;
 use think\Request;
 use app\home\model\Document;
+use think\Session;
+
 /**
  * 文档模型控制器
  * 文档模型列表和详情
@@ -22,22 +24,47 @@ class Article extends Home {
 	}
 
 	/* 文档模型列表页 */
-	public function lists($p = 1){
+	public  function lists($p = 1){
 
 		/* 分类信息 */
 		$category = $this->category();
 		/* 获取当前分类列表 */
 		$Document = new Document();
-		$list = $Document->lists($category['id']);
-		if(false === $list){
-			$this->error('获取列表数据失败！');
-		}
-
-		/* 模板赋值并渲染模板 */
-		$this->assign('category', $category);
-		$this->assign('list', $list);
-		// echo $category['template_lists'];
-		return $this->fetch($category['template_lists']);
+		if($p==1){
+            $list = $Document->lists($category['id']);
+            if(false === $list){
+                $this->error('获取列表数据失败！');
+            }
+            /* 模板赋值并渲染模板 */
+            $this->assign('category', $category);
+            $this->assign('list', $list);
+            // echo $category['template_lists'];
+            return $this->fetch($category['template_lists']);
+        }
+        else{
+            $list = $Document->lists($category['id'],$p);
+            $html = '';
+            foreach ($list as $value){
+                $path = $value->picture?$value->picture->path:'/static/static/nopic.jpg';
+                $html .= '<div class="row noticeList">
+				<a href="/home/article/detail/id/'.$value->id.'.html">
+					<div class="col-xs-2">
+						<img class="noticeImg" src="'.$path.'"/>
+					</div>
+					<div class="col-xs-10">
+						<h3 class="ellipsis">'.$value->title.'</h3>
+						<p class="lead">'.$value->description.'}</p>
+						<span>查看全文</span>
+						<span class="pull-right">
+											<span>发表于 '.$value->create_time.'</span>
+											<span>阅读('.$value->view.')</span>&nbsp;&nbsp;
+										</span>
+					</div>
+				</a>
+			</div>';
+            }
+            echo $html;
+        }
 	}
 
 	/* 文档模型详情页 */
@@ -74,12 +101,14 @@ class Article extends Home {
 		$this->assign('category', $category);
 		$this->assign('info', $info);
 		$this->assign('page', $p); //页码
+		$this->assign('id', $id); //页码
 		return $this->fetch($tmpl);
 	}
 
 	/* 文档分类检测 */
 	private function category($id = 0){
 		/* 标识正确性检测 */
+
 		$id = $id ? $id : input('param.category',0);
 		if(empty($id)){
 			$this->error('没有指定文档分类！');
@@ -96,9 +125,10 @@ class Article extends Home {
 				default:
 					return $category;
 			}
-		} else {
-			$this->error('分类不存在或被禁用！');
 		}
+//        else {
+//            $this->error('分类不存在或被禁用！');
+//        }
 	}
 
 }
